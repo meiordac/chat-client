@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
 import * as socketIo from 'socket.io-client';
+import { SocketEvent } from '../models/event';
 
 const SERVER_URL = 'http://localhost:8080';
 
@@ -24,7 +25,7 @@ export class SocketService {
         });
     }
 
-    public onEvent(event: Event): Observable<any> {
+    public onEvent(event: SocketEvent): Observable<any> {
         return new Observable<Event>(observer => {
             this.socket.on(event, () => observer.next());
         });
