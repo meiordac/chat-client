@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChatComponent } from './components/chat.component';
 import { SocketService } from './services/socket.service';
-import { MatCardModule, MatIconModule, MatInputModule } from '@angular/material';
+import { MatCardModule, MatIconModule, MatInputModule, MatDialogModule, MatButtonModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { UserDialogComponent } from './components/user-dialog/user-dialog.component';
 
 @NgModule({
   imports: [
@@ -11,12 +12,15 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     MatCardModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   exports: [
     ChatComponent
   ],
+  entryComponents: [UserDialogComponent],
   providers: [SocketService],
-  declarations: [ChatComponent]
+  declarations: [ChatComponent, UserDialogComponent]
 })
 export class ChatModule { }

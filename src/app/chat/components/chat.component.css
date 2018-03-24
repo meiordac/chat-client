@@ -3,14 +3,19 @@
     bottom:25px;
     left:25px;
     right:25px;
+    display: flex;
 }
 
 .chat-input {
+    margin-right: 20px;
     width: 100%;
 }
 
 .messages-container {
     overflow: auto;
     max-height: 500px;
-  }
-  
+}
+
+.user-dialog {
+    flex: 0 0 auto;
+}

@@ -11,6 +11,8 @@
   </mat-card>
 </div>
 
+
+
 <div class="chat-footer-container">
     <mat-form-field class="chat-input">
       <input matInput 
@@ -21,4 +23,8 @@
              (keyup.enter)="sendMessage(messageContent)">
       <mat-hint align="end">{{inputMessage.value.length}}/140</mat-hint>
     </mat-form-field>
-  </div>
+    
+    <button class="user-dialog" mat-fab color="primary" (click)="openDialog()">
+      <mat-icon aria-label="Person">person</mat-icon>
+    </button>
+</div>

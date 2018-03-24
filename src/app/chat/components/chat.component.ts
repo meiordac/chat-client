@@ -4,6 +4,8 @@ import { Action } from '../models/action';
 import { SocketEvent } from '../models/event';
 import { ChatMessage } from '../models/message';
 import { User } from '../models/user';
+import { MatDialog } from '@angular/material';
+import { UserDialogComponent } from './user-dialog/user-dialog.component';
 
 @Component({
   selector: 'app-chat',
@@ -12,12 +14,12 @@ import { User } from '../models/user';
 })
 export class ChatComponent implements OnInit {
   action = Action;
-  user: User = {name: 'Matias'};
+  user: User = {name: 'Anonymous'};
   messages: ChatMessage[] = [];
   messageContent: string;
   ioConnection: any;
 
-  constructor(private socketService: SocketService) { }
+  constructor(private socketService: SocketService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.initIoConnection();
@@ -74,5 +76,17 @@ export class ChatComponent implements OnInit {
     }
 
     this.socketService.send(message);
+  }
+
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(UserDialogComponent, {
+      width: '300px',
+      data: { name: this.user.name }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.user = {name: result};
+    });
   }
 }
