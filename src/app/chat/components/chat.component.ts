@@ -22,6 +22,7 @@ import { UserDialogComponent } from './user-dialog/user-dialog.component';
 export class ChatComponent implements OnInit {
   action = Action;
   user: User = { name: 'Anonymous' };
+  users: User[];
   messages: ChatMessage[] = [];
   messageContent: string;
   ioConnection: any;
@@ -55,19 +56,33 @@ export class ChatComponent implements OnInit {
     this.ioConnection = this.socketService
       .onMessage()
       .subscribe((message: ChatMessage) => {
-        if (message.from.name !== this.user.name) {
-          this.openSnackBar();
-        }
-        this.messages.push(message);
+        this.onNewMessage(message);
       });
 
+    this.socketService.onJoined().subscribe((data) => {
+      console.log(data);
+      this.openSnackBar(data);
+    });
+
+    this.socketService.onUsersChanged().subscribe((data) => {
+      this.users = data;
+      console.log(this.users);
+    });
+
     this.socketService.onEvent(SocketEvent.CONNECT).subscribe(() => {
-      console.log('connected');
+      console.log('You joined the room');
     });
 
     this.socketService.onEvent(SocketEvent.DISCONNECT).subscribe(() => {
-      console.log('disconnected');
+      console.log('You have been disconnected');
     });
+  }
+
+  onNewMessage(message: ChatMessage) {
+    if (message.from.name !== this.user.name) {
+      this.openSnackBar('New message');
+    }
+    this.messages.push(message);
   }
 
   /**
@@ -77,16 +92,16 @@ export class ChatComponent implements OnInit {
    * @returns {void}
    * @memberof ChatComponent
    */
-  public sendMessage(message: string): void {
-    if (!message) {
+  public sendMessage(): void {
+    if (!this.messageContent || this.messageContent.length === 0) {
       return;
     }
 
     this.socketService.send({
       from: this.user,
-      content: message
+      content: this.messageContent
     });
-    this.messageContent = null;
+    this.messageContent = '';
   }
 
   /**
@@ -129,17 +144,18 @@ export class ChatComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.sendNotification({previousUsername: this.user}, Action.RENAME);
       this.user = { name: result };
     });
   }
 
   /**
-   * Opens a snackbar for a new message
+   * Opens a snackbar
    *
    * @memberof ChatComponent
    */
-  openSnackBar() {
-    this.snackBar.open('New message', 'okay', {
+  openSnackBar(text: string) {
+    this.snackBar.open(text, 'okay', {
       duration: 3000
     })
       .onAction()
