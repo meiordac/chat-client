@@ -1,11 +1,6 @@
 import { User } from './user';
 
-export interface Message {
-    from: User;
-    content: string;
-}
-
-export interface ChatMessage extends Message {
+export interface ChatMessage {
     from: User;
     content: string;
 }
