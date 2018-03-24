@@ -1,0 +1,16 @@
+.chat-footer-container {
+    position:fixed;
+    bottom:25px;
+    left:25px;
+    right:25px;
+}
+
+.chat-input {
+    width: 100%;
+}
+
+.messages-container {
+    overflow: auto;
+    max-height: 500px;
+  }
+  

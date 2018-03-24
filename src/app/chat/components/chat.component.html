@@ -1,9 +1,24 @@
-<p>
-  chat works!
-</p>
+<div class="messages-container">
+  <mat-card *ngFor="let message of messages">
+    <mat-card-header>
+      <mat-card-subtitle>{{ message.from.name }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{ message.content }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
 
-
-*ngFor="let item of list"
-
-<mat-card *ngFor="let message of messages">{{ message.content }}</mat-card>
-<button (click)="sendMessage('hello this is a test')">Send message</button>
+<div class="chat-footer-container">
+    <mat-form-field class="chat-input">
+      <input matInput 
+             #inputMessage 
+             maxlength="140" 
+             placeholder="Type your message" 
+             [(ngModel)]="messageContent" 
+             (keyup.enter)="sendMessage(messageContent)">
+      <mat-hint align="end">{{inputMessage.value.length}}/140</mat-hint>
+    </mat-form-field>
+  </div>
