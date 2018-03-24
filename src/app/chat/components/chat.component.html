@@ -2,4 +2,8 @@
   chat works!
 </p>
 
+
+*ngFor="let item of list"
+
+<mat-card *ngFor="let message of messages">{{ message.content }}</mat-card>
 <button (click)="sendMessage('hello this is a test')">Send message</button>

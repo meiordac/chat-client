@@ -26,6 +26,7 @@ export class ChatComponent implements OnInit {
 
     this.ioConnection = this.socketService.onMessage()
       .subscribe((message: any) => {
+        console.log(message);
         this.messages.push(message);
       });
 
