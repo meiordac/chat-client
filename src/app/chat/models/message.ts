@@ -1,11 +1,11 @@
 import { User } from './user';
 
-export class Message {
-    constructor(from: User, content: string) {}
+export interface Message {
+    from: User;
+    content: string;
 }
 
-export class ChatMessage extends Message {
-    constructor(from: User, content: string) {
-        super(from, content);
-    }
+export interface ChatMessage extends Message {
+    from: User;
+    content: string;
 }
