@@ -4,6 +4,7 @@ import { Observer } from 'rxjs/Observer';
 
 import * as socketIo from 'socket.io-client';
 import { SocketEvent } from '../models/event';
+import { ChatMessage } from '../models/message';
 
 const SERVER_URL = 'http://localhost:8080';
 
@@ -19,9 +20,9 @@ export class SocketService {
         this.socket.emit('message', message);
     }
 
-    public onMessage(): Observable<any> {
-        return new Observable<any>(observer => {
-            this.socket.on('message', (data: any) => observer.next(data));
+    public onMessage(): Observable<ChatMessage> {
+        return new Observable<ChatMessage>(observer => {
+            this.socket.on('message', (data: ChatMessage) => observer.next(data));
         });
     }
 

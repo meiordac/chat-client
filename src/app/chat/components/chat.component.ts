@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SocketService } from '../services/socket.service';
 import { Action } from '../models/action';
 import { SocketEvent } from '../models/event';
+import { ChatMessage } from '../models/message';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-chat',
@@ -10,8 +12,8 @@ import { SocketEvent } from '../models/event';
 })
 export class ChatComponent implements OnInit {
   action = Action;
-  user: any;
-  messages: any[] = [];
+  user: User = {name: 'Matias'};
+  messages: ChatMessage[] = [];
   messageContent: string;
   ioConnection: any;
 
@@ -25,7 +27,7 @@ export class ChatComponent implements OnInit {
     this.socketService.initSocket();
 
     this.ioConnection = this.socketService.onMessage()
-      .subscribe((message: any) => {
+      .subscribe((message: ChatMessage) => {
         console.log(message);
         this.messages.push(message);
       });
@@ -54,7 +56,7 @@ export class ChatComponent implements OnInit {
   }
 
   public sendNotification(params: any, action: Action): void {
-    let message: any;
+    let message: ChatMessage;
 
     if (action === Action.JOINED) {
       message = {
