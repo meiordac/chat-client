@@ -1,17 +1,14 @@
 <div class="messages-container">
   <mat-card *ngFor="let message of messages">
     <mat-card-header>
-      <mat-card-subtitle>{{ message.from.name }}</mat-card-subtitle>
+      <div mat-card-avatar class="user-header-image"></div>
     </mat-card-header>
     <mat-card-content>
-      <p>
-        {{ message.content }}
-      </p>
+      <mat-card-subtitle>{{ message.from.name }}</mat-card-subtitle>
+      <p>{{ message.content }} </p>
     </mat-card-content>
   </mat-card>
 </div>
-
-
 
 <div class="chat-footer-container">
     <mat-form-field class="chat-textarea">
