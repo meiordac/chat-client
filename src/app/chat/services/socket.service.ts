@@ -27,7 +27,7 @@ export class SocketService {
     }
 
     public onEvent(event: SocketEvent): Observable<any> {
-        return new Observable<Event>(observer => {
+        return new Observable<SocketEvent>(observer => {
             this.socket.on(event, () => observer.next());
         });
     }
