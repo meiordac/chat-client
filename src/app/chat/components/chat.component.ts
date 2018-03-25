@@ -112,24 +112,26 @@ export class ChatComponent implements OnInit {
    * @memberof ChatComponent
    */
   public sendNotification(params: any, action: Action): void {
-    let message: any;
+    let data: any;
 
     if (action === Action.JOINED) {
-      message = {
+      data = {
         from: this.user,
         action: action
       };
+    this.socketService.join(data);
+
     } else if (action === Action.RENAME) {
-      message = {
+      data = {
         action: action,
         content: {
           username: this.user.name,
           previousUsername: params.previousUsername
         }
       };
+    this.socketService.rename(data);
     }
 
-    this.socketService.send(message);
   }
 
   /**

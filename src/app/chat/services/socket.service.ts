@@ -22,6 +22,14 @@ export class SocketService {
         this.socket.emit('message', message);
     }
 
+    public rename(data: any): void {
+        this.socket.emit('rename', data);
+    }
+
+    public join(data: any): void {
+        this.socket.emit('join', data);
+    }
+
     public onMessage(): Observable<ChatMessage> {
         return new Observable<ChatMessage>(observer => {
             this.socket.on('message', (data: ChatMessage) => observer.next(data));
