@@ -42,6 +42,8 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.initIoConnection();
+    setTimeout(() => this.openDialog());
+    this.socketService.join(this.user);
   }
 
   /**
@@ -111,7 +113,7 @@ export class ChatComponent implements OnInit {
    * @param {Action} action
    * @memberof ChatComponent
    */
-  public sendNotification(params: any, action: Action): void {
+  public sendNotification(params: {previousUsername: string, username: string}, action: Action): void {
     let data: any;
 
     if (action === Action.JOINED) {
@@ -125,7 +127,7 @@ export class ChatComponent implements OnInit {
       data = {
         action: action,
         content: {
-          username: this.user.name,
+          username: params.username,
           previousUsername: params.previousUsername
         }
       };
@@ -146,7 +148,7 @@ export class ChatComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.sendNotification({previousUsername: this.user}, Action.RENAME);
+      this.sendNotification({previousUsername: this.user.name, username: result}, Action.RENAME);
       this.user = { name: result };
     });
   }
