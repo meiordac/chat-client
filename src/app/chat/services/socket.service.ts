@@ -7,12 +7,14 @@ import * as socketIo from 'socket.io-client';
 import { SocketEvent } from '../models/event';
 import { ChatMessage } from '../models/message';
 import { User } from '../models/user';
+import { Action } from '../models/action';
 
 const SERVER_URL = 'http://localhost:8080';
 
 @Injectable()
 export class SocketService {
     private socket;
+    users: User[] = [];
 
     public initSocket(): void {
         this.socket = socketIo(SERVER_URL);
@@ -26,7 +28,7 @@ export class SocketService {
         this.socket.emit('rename', data);
     }
 
-    public join(data: any): void {
+    public join(data: {action: Action, from: User}): void {
         this.socket.emit('join', data);
     }
 
@@ -45,6 +47,12 @@ export class SocketService {
     public onJoined(): Observable<string> {
         return new Observable<string>(observer => {
             this.socket.on('join', (data: string) => observer.next(data));
+        });
+    }
+
+    public onId(): Observable<number> {
+        return new Observable<number>(observer => {
+            this.socket.on('id', (data: number) => observer.next(data));
         });
     }
 
