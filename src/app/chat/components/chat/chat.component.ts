@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { SocketService } from '../services/socket.service';
-import { Action } from '../models/action';
-import { SocketEvent } from '../models/event';
-import { ChatMessage } from '../models/message';
-import { User } from '../models/user';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { UserDialogComponent } from './user-dialog/user-dialog.component';
+import { SocketService } from '../../services/socket.service';
+import { Action } from '../../models/action';
+import { SocketEvent } from '../../models/event';
+import { ChatMessage } from '../../models/message';
+import { User } from '../../models/user';
+import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 
 /**
  * Main chat component
@@ -21,8 +21,7 @@ import { UserDialogComponent } from './user-dialog/user-dialog.component';
 })
 export class ChatComponent implements OnInit {
   action = Action;
-  user: User = { name: 'Anonymous' };
-  users: User[];
+  user: User = { id: null, name: 'Anonymous' };
   messages: ChatMessage[] = [];
   messageContent: string;
   ioConnection: any;
@@ -43,7 +42,7 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.initIoConnection();
     setTimeout(() => this.openDialog());
-    this.socketService.join(this.user);
+    this.sendNotification(Action.JOINED);
   }
 
   /**
@@ -61,18 +60,21 @@ export class ChatComponent implements OnInit {
         this.onNewMessage(message);
       });
 
-    this.socketService.onJoined().subscribe((data) => {
+    this.socketService.onJoined().subscribe(data => {
       console.log(data);
       this.openSnackBar(data);
     });
 
-    this.socketService.onUsersChanged().subscribe((data) => {
-      this.users = data;
-      console.log(this.users);
+    this.socketService.onUsersChanged().subscribe(data => {
+      this.socketService.users = data ? data : [];
+    });
+
+    this.socketService.onId().subscribe(data => {
+      this.user.id = data;
     });
 
     this.socketService.onEvent(SocketEvent.CONNECT).subscribe(() => {
-      console.log('You joined the room');
+      console.log('You joined the chatroom');
     });
 
     this.socketService.onEvent(SocketEvent.DISCONNECT).subscribe(() => {
@@ -113,27 +115,23 @@ export class ChatComponent implements OnInit {
    * @param {Action} action
    * @memberof ChatComponent
    */
-  public sendNotification(params: {previousUsername: string, username: string}, action: Action): void {
-    let data: any;
+  public sendNotification( action: Action
+  ): void {
 
     if (action === Action.JOINED) {
-      data = {
+
+      const data = {
         from: this.user,
         action: action
       };
-    this.socketService.join(data);
-
+      this.socketService.join(data);
     } else if (action === Action.RENAME) {
-      data = {
+      const data = {
         action: action,
-        content: {
-          username: params.username,
-          previousUsername: params.previousUsername
-        }
+        user: this.user
       };
-    this.socketService.rename(data);
+      this.socketService.rename(data);
     }
-
   }
 
   /**
@@ -148,8 +146,10 @@ export class ChatComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.sendNotification({previousUsername: this.user.name, username: result}, Action.RENAME);
-      this.user = { name: result };
+      this.user.name = result;
+      this.sendNotification(
+        Action.RENAME
+      );
     });
   }
 
@@ -159,9 +159,10 @@ export class ChatComponent implements OnInit {
    * @memberof ChatComponent
    */
   openSnackBar(text: string) {
-    this.snackBar.open(text, 'okay', {
-      duration: 3000
-    })
+    this.snackBar
+      .open(text, 'okay', {
+        duration: 3000
+      })
       .onAction()
       .subscribe(() => this.snackBar.dismiss());
   }
