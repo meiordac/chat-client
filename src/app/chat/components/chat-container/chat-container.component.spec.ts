@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChatContainerComponent } from './chat-container.component';
+import { ChatModule } from '../../chat.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ChatContainerComponent', () => {
   let component: ChatContainerComponent;
@@ -8,7 +10,7 @@ describe('ChatContainerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChatContainerComponent ]
+      imports: [ChatModule, NoopAnimationsModule]
     })
     .compileComponents();
   }));

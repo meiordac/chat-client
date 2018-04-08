@@ -32,7 +32,7 @@ export class ChatComponent implements OnInit {
    * @memberof ChatComponent
    */
   constructor(
-    private socketService: SocketService,
+    public socketService: SocketService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) {}
