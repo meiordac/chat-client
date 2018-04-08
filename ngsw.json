@@ -10,7 +10,7 @@
         "/chat-client/favicon.ico",
         "/chat-client/index.html",
         "/chat-client/inline.318b50c57b4eba3d437b.bundle.js",
-        "/chat-client/main.fd2b3815548d6d0d43fb.bundle.js",
+        "/chat-client/main.6f3c303b3230d028729e.bundle.js",
         "/chat-client/polyfills.8f6112c7568e7a2a5df0.bundle.js",
         "/chat-client/styles.e223ac0d5263c06dfda1.bundle.css"
       ],
@@ -30,10 +30,10 @@
   "hashTable": {
     "/chat-client/inline.318b50c57b4eba3d437b.bundle.js": "23400d48cb382d1fd23a2ad94503635a54d3b1d2",
     "/chat-client/assets/chat.png": "e417f947d36bff66543296c44aefb92567836dfe",
-    "/chat-client/main.fd2b3815548d6d0d43fb.bundle.js": "ecdae0748d508fab8bb17aa0ab527c99fc158232",
+    "/chat-client/main.6f3c303b3230d028729e.bundle.js": "b6a85b4af86e455a0341e4028cf4aa26d4b00eda",
     "/chat-client/polyfills.8f6112c7568e7a2a5df0.bundle.js": "6d8ebf594c8a56e53817db6a5441f3f017078571",
     "/chat-client/styles.e223ac0d5263c06dfda1.bundle.css": "b8e598feead0e41b6d8b01dabe57645348120b3c",
     "/chat-client/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/chat-client/index.html": "e22a909ae74ab67e5e58a92729b77d2de28f1974"
+    "/chat-client/index.html": "b3406053f9b8052679be47f744102b3d892d8629"
   }
 }
