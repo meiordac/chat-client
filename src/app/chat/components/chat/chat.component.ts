@@ -20,11 +20,9 @@ import { UserDialogComponent } from '../user-dialog/user-dialog.component';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  action = Action;
   user: User = { id: null, name: 'Anonymous' };
   messages: ChatMessage[] = [];
   messageContent: string;
-  ioConnection: any;
 
   /**
    * Creates an instance of ChatComponent.
@@ -53,40 +51,78 @@ export class ChatComponent implements OnInit {
    */
   private initIoConnection(): void {
     this.socketService.initSocket();
+    this.onMessage();
+    this.onJoin();
+    this.onUsersChanged();
+    this.onId();
+    this.onEvent();
+  }
 
-    this.ioConnection = this.socketService
-      .onMessage()
-      .subscribe((message: ChatMessage) => {
-        this.onNewMessage(message);
-      });
-
-    this.socketService.onJoined().subscribe(data => {
-      console.log(data);
-      this.openSnackBar(data);
-    });
-
-    this.socketService.onUsersChanged().subscribe(data => {
-      this.socketService.users = data ? data : [];
-    });
-
-    this.socketService.onId().subscribe(data => {
-      this.user.id = data;
-    });
-
+  /**
+   * Handles new events like connect or disconnect
+   *
+   * @private
+   * @memberof ChatComponent
+   */
+  private onEvent() {
     this.socketService.onEvent(SocketEvent.CONNECT).subscribe(() => {
       console.log('You joined the chatroom');
     });
-
     this.socketService.onEvent(SocketEvent.DISCONNECT).subscribe(() => {
       console.log('You have been disconnected');
     });
   }
 
-  onNewMessage(message: ChatMessage) {
-    if (message.from.name !== this.user.name) {
-      this.openSnackBar('New message');
-    }
-    this.messages.push(message);
+  /**
+   * Reacts to new id when new user joins
+   *
+   * @private
+   * @memberof ChatComponent
+   */
+  private onId() {
+    this.socketService.onId().subscribe(data => {
+      this.user.id = data;
+    });
+  }
+
+  /**
+   * Reatcs to list of users changed, when someone joins or leaves the chat
+   *
+   * @private
+   * @memberof ChatComponent
+   */
+  private onUsersChanged() {
+    this.socketService.onUsersChanged().subscribe(data => {
+      this.socketService.users = data ? data : [];
+    });
+  }
+
+  /**
+   * Reacts to a new user joining the chat with an snackBar
+   *
+   * @private
+   * @memberof ChatComponent
+   */
+  private onJoin() {
+    this.socketService.onJoined().subscribe(data => {
+      console.log(data);
+      this.openSnackBar(data);
+    });
+  }
+
+  /**
+   * Reacts to a new message, pushing it to an array
+   *
+   * @private
+   * @memberof ChatComponent
+   */
+  private onMessage() {
+    this.socketService.onMessage().subscribe((message: ChatMessage) => {
+      if (message.from.name !== this.user.name) {
+        this.openSnackBar('New message');
+      }
+      this.messages.push(message);
+    });
   }
 
   /**
@@ -111,15 +147,11 @@ export class ChatComponent implements OnInit {
   /**
    * Sends notification using socket service
    *
-   * @param {*} params
    * @param {Action} action
    * @memberof ChatComponent
    */
-  public sendNotification( action: Action
-  ): void {
-
+  public sendNotification(action: Action): void {
     if (action === Action.JOINED) {
-
       const data = {
         from: this.user,
         action: action
@@ -147,9 +179,7 @@ export class ChatComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.user.name = result;
-      this.sendNotification(
-        Action.RENAME
-      );
+      this.sendNotification(Action.RENAME);
     });
   }
 
