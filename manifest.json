@@ -1,0 +1,13 @@
+{
+    "short_name": "Awesome Chat",
+    "name": "Awesome Progressive Web Chat App",
+    "icons": [
+      {
+        "src": "assets/chat.png",
+        "type": "image/png",
+        "sizes": "256x256"
+      }
+    ],
+    "start_url": "/",
+    "display": "standalone"
+  }
