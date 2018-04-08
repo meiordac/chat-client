@@ -1,0 +1,39 @@
+{
+  "configVersion": 1,
+  "index": "/chat-client/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/chat-client/favicon.ico",
+        "/chat-client/index.html",
+        "/chat-client/inline.318b50c57b4eba3d437b.bundle.js",
+        "/chat-client/main.fd2b3815548d6d0d43fb.bundle.js",
+        "/chat-client/polyfills.05aa8a6699a447e8ac38.bundle.js",
+        "/chat-client/styles.e223ac0d5263c06dfda1.bundle.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/chat-client/assets/chat.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/chat-client/inline.318b50c57b4eba3d437b.bundle.js": "23400d48cb382d1fd23a2ad94503635a54d3b1d2",
+    "/chat-client/assets/chat.png": "e417f947d36bff66543296c44aefb92567836dfe",
+    "/chat-client/main.fd2b3815548d6d0d43fb.bundle.js": "ecdae0748d508fab8bb17aa0ab527c99fc158232",
+    "/chat-client/polyfills.05aa8a6699a447e8ac38.bundle.js": "2fe101ba81e800ce81a90698a20f62678de57776",
+    "/chat-client/styles.e223ac0d5263c06dfda1.bundle.css": "b8e598feead0e41b6d8b01dabe57645348120b3c",
+    "/chat-client/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
+    "/chat-client/index.html": "1231ede2f2a6e917e91cab52fb74d288b3a102e8"
+  }
+}
