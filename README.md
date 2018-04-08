@@ -2,6 +2,12 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
 
+This Chat client was implemented using WebSockets, specifically the Socket.IO library which enables real-time bidirectional event-based communication.
+
+This chat is based in their basic guide https://socket.io/get-started/chat/ for the server side.
+
+It was developed using Angular, Angular Material, and it attempts to be a progressive web app.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

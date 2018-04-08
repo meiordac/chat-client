@@ -8,7 +8,8 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy": "ng build -prod -sm -ec -bh /chat-client/ && gh-pages -d dist"
   },
   "private": true,
   "dependencies": {

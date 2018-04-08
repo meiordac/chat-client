@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { of } from 'rxjs/observable/of';
-
 import * as socketIo from 'socket.io-client';
+
 import { SocketEvent } from '../models/event';
 import { ChatMessage } from '../models/message';
 import { User } from '../models/user';
 import { Action } from '../models/action';
-
-const SERVER_URL = 'http://localhost:3000';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class SocketService {
@@ -17,7 +16,7 @@ export class SocketService {
     users: User[] = [];
 
     public initSocket(): void {
-        this.socket = socketIo(SERVER_URL);
+        this.socket = socketIo(environment.serverUrl);
     }
 
     public send(message: ChatMessage): void {
