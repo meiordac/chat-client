@@ -9,7 +9,7 @@ import { ChatMessage } from '../models/message';
 import { User } from '../models/user';
 import { Action } from '../models/action';
 
-const SERVER_URL = 'http://localhost:8080';
+const SERVER_URL = 'http://localhost:3000';
 
 @Injectable()
 export class SocketService {
