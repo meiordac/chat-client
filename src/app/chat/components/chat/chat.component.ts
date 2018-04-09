@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { SocketService } from '../../services/socket.service';
 import { Action } from '../../models/action';
@@ -6,6 +6,7 @@ import { SocketEvent } from '../../models/event';
 import { ChatMessage } from '../../models/message';
 import { User } from '../../models/user';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 /**
  * Main chat component
@@ -17,12 +18,14 @@ import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+  styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-  user: User = { id: null, name: 'Anonymous' };
+  @ViewChild('messagesContainer') messageContainer: ElementRef;
+  user: User;
   messages: ChatMessage[] = [];
   messageContent: string;
+  mobileQuery: MediaQueryList;
 
   /**
    * Creates an instance of ChatComponent.
@@ -34,13 +37,33 @@ export class ChatComponent implements OnInit {
   constructor(
     public socketService: SocketService,
     public dialog: MatDialog,
-    public snackBar: MatSnackBar
-  ) {}
+    public snackBar: MatSnackBar,
+    media: MediaMatcher
+  ) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this.user = { id: null, name: 'Anonymous', image: this.getRandomImage()};
+  }
 
+  /**
+   * On init initializes io
+   *
+   * @memberof ChatComponent
+   */
   ngOnInit(): void {
-    this.initIoConnection();
+    this.initSocketIo();
     setTimeout(() => this.openDialog());
     this.sendNotification(Action.JOINED);
+  }
+
+  /**
+   * Returns a random image from unsplash
+   *
+   * @returns {string}
+   * @memberof ChatComponent
+   */
+  getRandomImage(): string {
+    const collectionId = Math.floor(Math.random() * 100000) + 1;
+    return `https://source.unsplash.com/random?sig=${collectionId}`;
   }
 
   /**
@@ -49,8 +72,8 @@ export class ChatComponent implements OnInit {
    * @private
    * @memberof ChatComponent
    */
-  private initIoConnection(): void {
-    this.socketService.initSocket();
+  private initSocketIo(): void {
+    this.socketService.initSocketIo();
     this.onMessage();
     this.onJoin();
     this.onUsersChanged();
@@ -122,6 +145,7 @@ export class ChatComponent implements OnInit {
         this.openSnackBar('New message');
       }
       this.messages.push(message);
+      this.scrollToBottom();
     });
   }
 
@@ -195,5 +219,14 @@ export class ChatComponent implements OnInit {
       })
       .onAction()
       .subscribe(() => this.snackBar.dismiss());
+  }
+
+  /**
+   * Scrolls to bottom of message container
+   *
+   * @memberof ChatComponent
+   */
+  scrollToBottom() {
+    this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
   }
 }
