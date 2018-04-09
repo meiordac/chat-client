@@ -28,5 +28,4 @@ export class ChatContainerComponent implements OnDestroy {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
-
 }
