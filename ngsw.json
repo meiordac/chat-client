@@ -21,7 +21,15 @@
       "installMode": "lazy",
       "updateMode": "prefetch",
       "urls": [
-        "/chat-client/assets/chat.png"
+        "/chat-client/assets/chat.png",
+        "/chat-client/assets/icons/icon-128x128.png",
+        "/chat-client/assets/icons/icon-144x144.png",
+        "/chat-client/assets/icons/icon-152x152.png",
+        "/chat-client/assets/icons/icon-192x192.png",
+        "/chat-client/assets/icons/icon-384x384.png",
+        "/chat-client/assets/icons/icon-512x512.png",
+        "/chat-client/assets/icons/icon-72x72.png",
+        "/chat-client/assets/icons/icon-96x96.png"
       ],
       "patterns": []
     }
@@ -31,9 +39,17 @@
     "/chat-client/inline.318b50c57b4eba3d437b.bundle.js": "23400d48cb382d1fd23a2ad94503635a54d3b1d2",
     "/chat-client/assets/chat.png": "e417f947d36bff66543296c44aefb92567836dfe",
     "/chat-client/main.a18e4556351bd49e2cd0.bundle.js": "b5a069e6e1589b5954d6e54fd5a391858be29e09",
+    "/chat-client/assets/icons/icon-128x128.png": "c5ebab6587b4ec9254bfd69d6c8736e646b6b989",
     "/chat-client/polyfills.8f6112c7568e7a2a5df0.bundle.js": "6d8ebf594c8a56e53817db6a5441f3f017078571",
+    "/chat-client/assets/icons/icon-144x144.png": "f316d1bc649032eec92404a66935df3bdf85284a",
     "/chat-client/styles.e223ac0d5263c06dfda1.bundle.css": "b8e598feead0e41b6d8b01dabe57645348120b3c",
+    "/chat-client/assets/icons/icon-152x152.png": "be6a67b682200e1c2df2e2cb9e9ee646ff3afcb6",
     "/chat-client/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/chat-client/index.html": "2e280ac28ba3e52ad9a7898587d195da9ac77e7a"
+    "/chat-client/assets/icons/icon-192x192.png": "bfeb0dd71f26697079aa2d2e30e0b9f1b70c32eb",
+    "/chat-client/index.html": "2e280ac28ba3e52ad9a7898587d195da9ac77e7a",
+    "/chat-client/assets/icons/icon-384x384.png": "4e79fbc09f1fffbc79331c8e1986b25a4c982250",
+    "/chat-client/assets/icons/icon-512x512.png": "4e79fbc09f1fffbc79331c8e1986b25a4c982250",
+    "/chat-client/assets/icons/icon-72x72.png": "4cf2b8cb868288cb103a6e9a0685574194ef6480",
+    "/chat-client/assets/icons/icon-96x96.png": "855753208fbd1ce642cca1b1d44294c7dc5f5c78"
   }
 }
