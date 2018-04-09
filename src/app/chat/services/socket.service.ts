@@ -15,7 +15,7 @@ export class SocketService {
     private socket;
     users: User[] = [];
 
-    public initSocket(): void {
+    public initSocketIo(): void {
         this.socket = socketIo(environment.serverUrl);
     }
 
