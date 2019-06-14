@@ -17,7 +17,8 @@ import { environment } from '../environments/environment';
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     MatIconModule,
     BrowserAnimationsModule,
-    ChatModule
+    ChatModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
