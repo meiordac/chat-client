@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { SocketService } from '../../services/socket.service';
 import { Action } from '../../models/action';
 import { SocketEvent } from '../../models/event';
@@ -21,7 +22,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-  @ViewChild('messagesContainer') messageContainer: ElementRef;
+  @ViewChild('messagesContainer', { static: true }) messageContainer: ElementRef;
   user: User;
   messages: ChatMessage[] = [];
   messageContent: string;
