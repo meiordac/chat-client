@@ -4,8 +4,8 @@
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
-  "scope": "/client-chat/",
-  "start_url": "/client-chat/",
+  "scope": "/chat-client/",
+  "start_url": "/chat-client/",
   "icons": [{
       "src": "assets/icons/icon-72x72.png",
       "sizes": "72x72",
