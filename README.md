@@ -1,25 +1,49 @@
 # ChatClient
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
+As a programmer I like to keep learning the latest technologies and what better way than creating something where one can apply them?
 
-This Chat client was implemented using WebSockets, specifically the Socket.IO library which enables real-time bidirectional event-based communication.
+I wanted to learn something about WebSockets and I thought a chat application would be fun to develop, I also wanted to try the Progressive Web Apps (PWA) capacities of Angular which have improved a lot since Angular 5, making it really easy to create a PWA.
 
-This chat is based in their basic guide https://socket.io/get-started/chat/ for the server side.
+In this post I give details on how I implemented a chat application using WebSockets, specifically the Socket.IO library which enables real-time bidirectional event-based communication.
 
-It was developed using Angular, Angular Material, and it attempts to be a progressive web app, it implements Angular Service Worker and include a manifest.json.
+## Chat Backend
 
-## Development server
+I first started with the guide to create a basic chat from Socket.io https://socket.io/get-started/chat/ for the server side. The Chat server was developed using Node, Express, Typescript, Socket.io, gulp, and deployed on Heroku.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files. The app will use the local version of the chat-server.
+The repository for the backend is hosted in Github:
 
-## Build
+https://github.com/meiordac/chat-server
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+## Chat Frontend
 
-## Deploy
+The frontend application was developed using Angular, Angular Material, and it obviously attempts to be a Progressive Web App, it implements Angular Service Worker and include a manifest.json.
 
-For deploy in Github pages run `npm run deploy` but make sure to change the script in package.json and to install gh-pages globally.
+To use the Angular Service worker we have to run
 
-## Running unit tests
+`npm install —save @angular/service-worker`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+then we have to activate the service worker so that the angular-cli knows that we want to use a service worker.
+
+`ng set apps.0.serviceWorker=true`
+
+import the ServiceWorkerModule in our app.module and finally add a manifest file ngsw-config.json.
+
+Finally I created a manifest.json following the The Web App Manifest being careful to add the manifest.json to the list of assets in my .angular-cli.json file so that it gets copied when deploying.
+
+## Frontend features
+
+Angular
+Angular Material
+Angular Service Worker
+Manifest.json
+Automated testing with Karma
+Source Code
+Find the complete project in this GitHub repository:
+
+https://meiordac.github.io/chat-client/
+
+## Live Demo
+
+The final version of the chat client is deployed in
+
+https://meiordac.github.io/chat-client/

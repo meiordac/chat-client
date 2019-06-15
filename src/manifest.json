@@ -1,8 +1,7 @@
 {
-    "short_name": "Awesome Chat",
-    "name": "Awesome Progressive Web Chat App",
-     "icons": [
-    {
+  "short_name": "Awesome Chat",
+  "name": "Awesome Progressive Web Chat App",
+  "icons": [{
       "src": "assets/icons/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png"
@@ -43,6 +42,6 @@
       "type": "image/png"
     }
   ],
-    "start_url": "/",
-    "display": "standalone"
-  }
+  "start_url": ".",
+  "display": "standalone"
+}
