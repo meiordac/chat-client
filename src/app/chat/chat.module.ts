@@ -14,6 +14,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormsModule } from '@angular/forms';
 import { UserDialogComponent } from './components/user-dialog/user-dialog.component';
 import { ChatContainerComponent } from './components/chat-container/chat-container.component';
+import { PrivateMessageComponent } from './components/private-message/private-message.component';
 
 @NgModule({
   imports: [
@@ -32,6 +33,6 @@ import { ChatContainerComponent } from './components/chat-container/chat-contain
   exports: [ChatContainerComponent],
   entryComponents: [UserDialogComponent],
   providers: [SocketService],
-  declarations: [ChatComponent, UserDialogComponent, ChatContainerComponent]
+  declarations: [ChatComponent, UserDialogComponent, ChatContainerComponent, PrivateMessageComponent]
 })
 export class ChatModule {}
