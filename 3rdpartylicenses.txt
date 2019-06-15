@@ -63,9 +63,6 @@ THE SOFTWARE.
 @angular/platform-browser
 MIT
 
-@angular/service-worker
-MIT
-
 after
 MIT
 Copyright (c) 2011 Raynos.
