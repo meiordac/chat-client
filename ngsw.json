@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1560594501228,
+  "timestamp": 1560594804069,
   "index": "/chat-client/index.html",
   "assetGroups": [
     {
@@ -50,7 +50,7 @@
     "/chat-client/assets/icons/icon-72x72.png": "4cf2b8cb868288cb103a6e9a0685574194ef6480",
     "/chat-client/assets/icons/icon-96x96.png": "855753208fbd1ce642cca1b1d44294c7dc5f5c78",
     "/chat-client/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/chat-client/index.html": "018f409e24e114a350de4b5d8489cf7fd6daa045",
+    "/chat-client/index.html": "299df4b005f7bb056f2a01d2d2691fd574f2d3cd",
     "/chat-client/main-es2015.1b1841f471fee6930b3b.js": "7ac782e7b9abce63a48c8d07702f89eb35e173c9",
     "/chat-client/main-es5.ceae84bd23d5da1325de.js": "a3d27b1e2a4ff807936120bb89f1e267a9e303ba",
     "/chat-client/polyfills-es2015.e49b813d958546e495f7.js": "1d6ee8c385bf564449b625688211f19cae794126",
