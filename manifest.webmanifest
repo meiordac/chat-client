@@ -1,11 +1,11 @@
 {
-  "name": "chat-client",
-  "short_name": "chat-client",
+  "name": "Awesome Progressive Web Chat App",
+  "short_name": "Awesome Chat",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
-  "scope": "/chat-client/",
-  "start_url": "/chat-client/",
+  "scope": "",
+  "start_url": "",
   "icons": [{
       "src": "assets/icons/icon-72x72.png",
       "sizes": "72x72",

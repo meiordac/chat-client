@@ -42,6 +42,6 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/client-chat/",
+  "start_url": "",
   "display": "standalone"
 }
