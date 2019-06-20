@@ -9,7 +9,6 @@ import { ChatModule } from './chat/chat.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, MatIconModule, BrowserAnimationsModule, ChatModule],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

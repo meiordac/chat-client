@@ -1,3 +1,21 @@
-<p>
-  private-message works!
-</p>
+  <div class="messages-container" #messagesContainer>
+    <mat-card *ngFor="let message of messages">
+      <mat-card-header>
+        <div mat-card-avatar class="user-header-image"
+          [ngStyle]="{'background-image': 'url(' + message.from.image + ')'}"></div>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-card-subtitle>{{ message.from.name }}</mat-card-subtitle>
+        <p>{{ message.content }} </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="chat-footer-container">
+    <mat-form-field class="chat-textarea">
+      <textarea matInput #textareaMessage maxlength="140" placeholder="Type your message" [(ngModel)]="messageContent"
+        (keyup.enter)="sendMessage()">
+      </textarea>
+      <mat-hint align="end">{{textareaMessage.value.length}}/140</mat-hint>
+    </mat-form-field>
+  </div>

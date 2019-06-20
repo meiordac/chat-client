@@ -1,13 +1,16 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SocketService } from '../../services/socket.service';
+
 import { Action } from '../../models/action';
 import { SocketEvent } from '../../models/event';
 import { ChatMessage } from '../../models/message';
 import { User } from '../../models/user';
+import { SocketService } from '../../services/socket.service';
+import { UserService } from '../../services/user.service';
+import { PrivateMessageComponent } from '../private-message/private-message.component';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
-import { MediaMatcher } from '@angular/cdk/layout';
 
 /**
  * Main chat component
@@ -22,7 +25,9 @@ import { MediaMatcher } from '@angular/cdk/layout';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-  @ViewChild('messagesContainer', { static: true }) messageContainer: ElementRef;
+  @ViewChild('messagesContainer', { static: true })
+  messageContainer: ElementRef;
+
   user: User;
   messages: ChatMessage[] = [];
   messageContent: string;
@@ -39,10 +44,10 @@ export class ChatComponent implements OnInit {
     public socketService: SocketService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
+    private userService: UserService,
     media: MediaMatcher
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this.user = { id: null, name: 'Anonymous', image: this.getRandomImage()};
   }
 
   /**
@@ -52,19 +57,7 @@ export class ChatComponent implements OnInit {
    */
   ngOnInit(): void {
     this.initSocketIo();
-    setTimeout(() => this.openDialog());
     this.sendNotification(Action.JOINED);
-  }
-
-  /**
-   * Returns a random image from unsplash
-   *
-   * @returns {string}
-   * @memberof ChatComponent
-   */
-  getRandomImage(): string {
-    const collectionId = Math.floor(Math.random() * 100000) + 1;
-    return `https://source.unsplash.com/random?sig=${collectionId}`;
   }
 
   /**
@@ -76,9 +69,11 @@ export class ChatComponent implements OnInit {
   private initSocketIo(): void {
     this.socketService.initSocketIo();
     this.onMessage();
+    this.onMessages();
+    this.onPrivateMessage();
     this.onJoin();
+    this.onNewUser();
     this.onUsersChanged();
-    this.onId();
     this.onEvent();
   }
 
@@ -103,9 +98,11 @@ export class ChatComponent implements OnInit {
    * @private
    * @memberof ChatComponent
    */
-  private onId() {
-    this.socketService.onId().subscribe(data => {
-      this.user.id = data;
+  private onNewUser() {
+    this.socketService.onNewUser().subscribe(data => {
+      this.user = data;
+      this.userService.currentUser = data;
+      setTimeout(() => this.openDialog());
     });
   }
 
@@ -151,13 +148,25 @@ export class ChatComponent implements OnInit {
   }
 
   /**
+   *
+   *
+   * @private
+   * @memberof ChatComponent
+   */
+  private onMessages() {
+    this.socketService.onMessages().subscribe((messages: ChatMessage[]) => {
+      this.messages.push(...messages);
+    });
+  }
+
+  /**
    * Sends a message
    *
    * @param {string} message
    * @returns {void}
    * @memberof ChatComponent
    */
-  public sendMessage(): void {
+  sendMessage(): void {
     if (!this.messageContent || this.messageContent.length === 0) {
       return;
     }
@@ -175,7 +184,7 @@ export class ChatComponent implements OnInit {
    * @param {Action} action
    * @memberof ChatComponent
    */
-  public sendNotification(action: Action): void {
+  sendNotification(action: Action): void {
     if (action === Action.JOINED) {
       const data = {
         from: this.user,
@@ -229,5 +238,24 @@ export class ChatComponent implements OnInit {
    */
   scrollToBottom() {
     this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
+  }
+
+  /**
+   *
+   *
+   * @memberof ChatComponent
+   */
+  onPrivateMessage() {
+    this.socketService.onPrivateMessage().subscribe(message => {
+      if (!this.userService.privateChat) {
+        this.userService.privateChat = this.dialog.open(
+          PrivateMessageComponent,
+          {
+            width: '500px',
+            data: message
+          }
+        );
+      }
+    });
   }
 }

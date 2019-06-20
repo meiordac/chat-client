@@ -1,7 +1,6 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChatComponent } from './components/chat/chat.component';
-import { SocketService } from './services/socket.service';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -11,10 +10,11 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { FormsModule } from '@angular/forms';
-import { UserDialogComponent } from './components/user-dialog/user-dialog.component';
+
 import { ChatContainerComponent } from './components/chat-container/chat-container.component';
+import { ChatComponent } from './components/chat/chat.component';
 import { PrivateMessageComponent } from './components/private-message/private-message.component';
+import { UserDialogComponent } from './components/user-dialog/user-dialog.component';
 
 @NgModule({
   imports: [
@@ -32,7 +32,11 @@ import { PrivateMessageComponent } from './components/private-message/private-me
   ],
   exports: [ChatContainerComponent],
   entryComponents: [UserDialogComponent],
-  providers: [SocketService],
-  declarations: [ChatComponent, UserDialogComponent, ChatContainerComponent, PrivateMessageComponent]
+  declarations: [
+    ChatComponent,
+    UserDialogComponent,
+    ChatContainerComponent,
+    PrivateMessageComponent
+  ]
 })
 export class ChatModule {}
