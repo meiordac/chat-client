@@ -44,7 +44,7 @@ export class ChatService {
       meta: { status: number; msg: string; response_id: string };
       pagination: { total_count: number; count: number; offset: number };
     }>(
-      `http://api.giphy.com/v1/gifs/search?q=${q
+      `https://api.giphy.com/v1/gifs/search?q=${q
         .toLowerCase()
         .replace(' ', '+')}&api_key=${environment.giphyKey}&limit=1`
     );
