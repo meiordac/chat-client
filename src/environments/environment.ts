@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  serverUrl: 'http://localhost:3000'
+  serverUrl: 'http://localhost:3000',
+  giphyKey: 'zwLRp2nYi8P60uzfi3kNVzu6sALP2N90'
 };

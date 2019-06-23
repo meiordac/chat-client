@@ -4,6 +4,12 @@
       <mat-icon>menu</mat-icon>
     </button>
     <h1 class="title">Awesome Chat</h1>
+
+    <span class="spacer"></span>
+
+    <button [ngClass]="{mini: mobileQuery.matches}" class="user-dialog" mat-fab color="primary" (click)="openDialog()">
+      <mat-icon aria-label="Person">person</mat-icon>
+    </button>
   </mat-toolbar>
 
   <mat-sidenav-container class="chat-sidenav-container">
@@ -15,7 +21,7 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-      <app-chat></app-chat>
+      <app-chat #chat></app-chat>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

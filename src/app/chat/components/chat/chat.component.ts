@@ -7,10 +7,9 @@ import { Action } from '../../models/action';
 import { SocketEvent } from '../../models/event';
 import { ChatMessage } from '../../models/message';
 import { User } from '../../models/user';
+import { ChatService } from '../../services/chat.service';
 import { SocketService } from '../../services/socket.service';
-import { UserService } from '../../services/user.service';
 import { PrivateMessageComponent } from '../private-message/private-message.component';
-import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 
 /**
  * Main chat component
@@ -44,7 +43,7 @@ export class ChatComponent implements OnInit {
     public socketService: SocketService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
-    private userService: UserService,
+    private chatService: ChatService,
     media: MediaMatcher
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -56,23 +55,21 @@ export class ChatComponent implements OnInit {
    * @memberof ChatComponent
    */
   ngOnInit(): void {
-    this.initSocketIo();
+    this.initializeChatEvents();
     this.sendNotification(Action.JOINED);
   }
 
   /**
-   * Initiates Socket Io connection and subscribes to new message and connect/disconnected events
+   *
    *
    * @private
    * @memberof ChatComponent
    */
-  private initSocketIo(): void {
-    this.socketService.initSocketIo();
+  private initializeChatEvents() {
     this.onMessage();
     this.onMessages();
     this.onPrivateMessage();
     this.onJoin();
-    this.onNewUser();
     this.onUsersChanged();
     this.onEvent();
   }
@@ -89,20 +86,6 @@ export class ChatComponent implements OnInit {
     });
     this.socketService.onEvent(SocketEvent.DISCONNECT).subscribe(() => {
       console.log('You have been disconnected');
-    });
-  }
-
-  /**
-   * Reacts to new id when new user joins
-   *
-   * @private
-   * @memberof ChatComponent
-   */
-  private onNewUser() {
-    this.socketService.onNewUser().subscribe(data => {
-      this.user = data;
-      this.userService.currentUser = data;
-      setTimeout(() => this.openDialog());
     });
   }
 
@@ -156,6 +139,7 @@ export class ChatComponent implements OnInit {
   private onMessages() {
     this.socketService.onMessages().subscribe((messages: ChatMessage[]) => {
       this.messages.push(...messages);
+      this.scrollToBottom();
     });
   }
 
@@ -176,6 +160,7 @@ export class ChatComponent implements OnInit {
       content: this.messageContent
     });
     this.messageContent = '';
+    this.scrollToBottom();
   }
 
   /**
@@ -201,23 +186,6 @@ export class ChatComponent implements OnInit {
   }
 
   /**
-   * Opens a user dialog
-   *
-   * @memberof ChatComponent
-   */
-  openDialog(): void {
-    const dialogRef = this.dialog.open(UserDialogComponent, {
-      width: '300px',
-      data: { name: this.user.name }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.user.name = result;
-      this.sendNotification(Action.RENAME);
-    });
-  }
-
-  /**
    * Opens a snackbar
    *
    * @memberof ChatComponent
@@ -237,7 +205,9 @@ export class ChatComponent implements OnInit {
    * @memberof ChatComponent
    */
   scrollToBottom() {
-    this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
+    setTimeout(() => {
+      this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
+    }, 300);
   }
 
   /**
@@ -247,15 +217,37 @@ export class ChatComponent implements OnInit {
    */
   onPrivateMessage() {
     this.socketService.onPrivateMessage().subscribe(message => {
-      if (!this.userService.privateChat) {
-        this.userService.privateChat = this.dialog.open(
+      if (!this.chatService.privateChat) {
+        this.chatService.privateChat = this.dialog.open(
           PrivateMessageComponent,
           {
             width: '500px',
             data: message
           }
         );
+      } else {
+        this.chatService.privateChat.componentInstance.onPrivateMessage(
+          message
+        );
       }
+    });
+  }
+
+  getGif() {
+    this.chatService.getGif(this.messageContent).subscribe(value => {
+      console.log(value);
+
+      if (value.data.length === 0) {
+        return;
+      }
+      const firstImg = value.data[0].images;
+
+      const img = `<img src="${firstImg.downsized.url}" alt="" style="height: ${
+        firstImg.downsized.height
+      }; width: ${firstImg.downsized.width}">`;
+
+      this.messageContent = img;
+      this.sendMessage();
     });
   }
 }
