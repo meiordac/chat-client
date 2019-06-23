@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1561050371079,
+  "timestamp": 1561320610763,
   "index": "/chat-client/index.html",
   "assetGroups": [
     {
@@ -10,8 +10,8 @@
       "urls": [
         "/chat-client/favicon.ico",
         "/chat-client/index.html",
-        "/chat-client/main-es2015.b259b54d250b02a9e314.js",
-        "/chat-client/main-es5.c1cbf1ef5645cf478d7b.js",
+        "/chat-client/main-es2015.c899281159f24a5fe280.js",
+        "/chat-client/main-es5.1e0cc4240488c80d74b7.js",
         "/chat-client/polyfills-es2015.e49b813d958546e495f7.js",
         "/chat-client/polyfills-es5.9f76cb7c19b088b03a34.js",
         "/chat-client/runtime-es2015.858f8dd898b75fe86926.js",
@@ -50,9 +50,9 @@
     "/chat-client/assets/icons/icon-72x72.png": "4cf2b8cb868288cb103a6e9a0685574194ef6480",
     "/chat-client/assets/icons/icon-96x96.png": "855753208fbd1ce642cca1b1d44294c7dc5f5c78",
     "/chat-client/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/chat-client/index.html": "c6b2a467544e823b516c662eabdafe2c16d675f6",
-    "/chat-client/main-es2015.b259b54d250b02a9e314.js": "d1062e644c0ed5e1744cabd3704e8a0ed5305e3f",
-    "/chat-client/main-es5.c1cbf1ef5645cf478d7b.js": "9475dffb5b1e04609ea4bea20465affafde25266",
+    "/chat-client/index.html": "9a906b4912752895631f6aabe63a6836abfe5cc6",
+    "/chat-client/main-es2015.c899281159f24a5fe280.js": "417800cd2f7dceb6b84a142ae5843974d0d64cb5",
+    "/chat-client/main-es5.1e0cc4240488c80d74b7.js": "543bc0658d39d6e540d82f88ffb39736142b8434",
     "/chat-client/polyfills-es2015.e49b813d958546e495f7.js": "1d6ee8c385bf564449b625688211f19cae794126",
     "/chat-client/polyfills-es5.9f76cb7c19b088b03a34.js": "6b04dce21178a8200254295786ea35dff16a68ae",
     "/chat-client/runtime-es2015.858f8dd898b75fe86926.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
