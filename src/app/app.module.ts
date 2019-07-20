@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { AngularFireModule } from '@angular/fire';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,7 +15,8 @@ import { ChatModule } from './chat/chat.module';
     MatIconModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ChatModule
+    ChatModule,
+    AngularFireModule
   ],
   bootstrap: [AppComponent]
 })
