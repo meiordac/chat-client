@@ -6,10 +6,17 @@ import { environment } from './environments/environment';
 
 if (environment.production) {
   enableProdMode();
+}
 
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./ngsw-worker.js');
-  }
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('./firebase-messaging-sw.js')
+    .then(value => {
+      console.log('Firebase messaging worker registered', value);
+    })
+    .catch(error => {
+      console.error('Messaging worker could not be registered', error);
+    });
 }
 
 platformBrowserDynamic()
