@@ -1,7 +1,9 @@
 {
   "short_name": "Awesome Chat",
   "name": "Awesome Progressive Web Chat App",
-  "icons": [{
+  "gcm_sender_id": "103953800507",
+  "icons": [
+    {
       "src": "assets/icons/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png"
